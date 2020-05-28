@@ -1,8 +1,8 @@
 {
   "segments": [
-    "/Users/bert/code/powerline-shell-customized/powerline_shell/segments/hamburger.py",
+    "~/code/powerline-shell-customized/powerline_shell/segments/hamburger.py",
     "ssh",
     "cwd",
-    "/Users/bert/code/powerline-shell-customized/powerline_shell/segments/git.py"
+    "~/code/powerline-shell-customized/powerline_shell/segments/git.py"
   ]
 }
