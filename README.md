@@ -1,5 +1,7 @@
 # powerline-shell-customized
-personal customizations for powerline-shell
+Bert's personal customizations for powerline-shell
+
+Add a hamburger prompt, use a more lightweight git integration that only shows the current branch name
 
 ## Usage
 
