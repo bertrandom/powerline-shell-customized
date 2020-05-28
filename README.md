@@ -25,4 +25,7 @@ mkdir -p ~/.config/powerline-shell
 ln -s ~/code/powerline-shell-customized/.config/powerline-shell/config.json config.json
 ```
 
+Add fonts:
+Install https://github.com/bertrandom/powerline-shell-customized/blob/master/fonts/Monaco%2Bfor%2BPowerline.otf and choose font in iTerm2
+
 Add contents of `.profile` to `~/.profile`
