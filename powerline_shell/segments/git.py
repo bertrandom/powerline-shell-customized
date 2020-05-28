@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import re
 import subprocess
 from powerline_shell.utils import RepoStats, ThreadedSegment, get_git_subprocess_env
@@ -64,14 +65,41 @@ def build_stats():
         branch = _get_git_detached_branch()
     return stats, branch
 
+def build_lightweight_stats():
+    try:
+        p = subprocess.Popen(['git', 'rev-parse', '--abbrev-ref', 'HEAD'],
+                             stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                             env=get_git_subprocess_env())
+    except OSError:
+        # Popen will throw an OSError if git is not found
+        return (None)
+
+    pdata = p.communicate()
+    if p.returncode != 0:
+        return (None)
+
+    status = pdata[0].decode("utf-8").splitlines()[0]
+    return status
 
 class Segment(ThreadedSegment):
     def run(self):
-        self.stats, self.branch = build_stats()
+        if os.getcwd() == "/Users/bert/code/webapp":
+            self.stats = None
+            self.branch = build_lightweight_stats()
+        else:
+            self.stats, self.branch = build_stats()
 
     def add_to_powerline(self):
         self.join()
         if not self.stats:
+            if self.branch:
+                bg = self.powerline.theme.REPO_CLEAN_BG
+                fg = self.powerline.theme.REPO_CLEAN_FG
+                if self.powerline.segment_conf("vcs", "show_symbol"):
+                    symbol = RepoStats().symbols["git"] + " "
+                else:
+                    symbol = ""
+                self.powerline.append(" " + symbol + self.branch + " ", fg, bg)
             return
         bg = self.powerline.theme.REPO_CLEAN_BG
         fg = self.powerline.theme.REPO_CLEAN_FG
